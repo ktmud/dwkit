@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Boston Map</title>
+  <style>
+		html, body { padding: 0; margin: 0; height: 100% }
+    body {
+      font-size: 14px;
+      font-family: sans-serif;
+    }
+    #map {
+      width: 100%;
+      height: 100%;
+    }
+    #infobox {
+      position: absolute;
+      margin: 0 auto;
+      top: 10px;
+      right: 10px;
+      background: #fff;
+      padding: 0.5em 1em;
+      border: 1px solid #bbb;
+      position: absolute;
+      border-radius: 1px;
+      box-shadow: 0 1px 3px rgba(0,0,0,.2);
+      width: 300px;
+    }
+    #infobox b {
+      display: inline-block;
+      width: 6em;
+      text-align: right;
+      padding-right: 0.5em;
+    }
+    #infobox ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    #infobox li {
+      margin: 0.4em 0;
+    }
+  </style>
+</head>
+<body>
+     <div id="map"></div>
+     <div id="infobox">Boston</div>
+    <script>
+    (function() {
+      var info = document.getElementById('infobox');
+
+      function initMap() {
+        // Create a map object and specify the DOM element for display.
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {
+            lat: 42.321, lng: -71.089773
+          },
+          scrollwheel: false,
+          zoom: 12
+        });
+
+
+			  map.data.loadGeoJson("./census-block-groups.json")
+        map.data.setStyle(function(feature) {
+          var color = "#fcc", opacity = 0.3
+          if (feature.getProperty("isSelected")) {
+            color = "#f33"
+            opacity = 0.5
+          }
+          return {
+            fillColor: color,
+            fillOpacity: opacity,
+            strokeWeight: 1,
+            strokeOpacity: 0.1
+          }
+        })
+
+        var lastText = 'Boston';
+        var getInfo = function(feature) {
+          var g = function(name) {
+            return feature.getProperty(name)
+          }
+          return '<ul>' +
+            '<li><b>BG_ID_10:</b>' + g('BG_ID_10') +
+            '<li><b>CT_ID_10:</b>' + g('CT_ID_10') +
+            '<li><b>BRA_PD:</b>' + g('BRA_PD') +
+            '<li><b>NSA_NAME:</b>' + g('NSA_NAME') +
+            '<li><b>ISD_Nbhd:</b>' + g('ISD_Nbhd') +
+            '<li><b>Zip Code:</b>' + g('ZIPCODE')
+
+        }
+
+        map.data.addListener('click', function(event) {
+          // toggle selected status
+          if (event.feature.getProperty('isSelected')) {
+            event.feature.setProperty('isSelected', false)
+          } else {
+            event.feature.setProperty('isSelected', true)
+          }
+          lastText = getInfo(event.feature)
+        })
+        map.data.addListener('mouseover', function(event) {
+          map.data.revertStyle()
+          map.data.overrideStyle(event.feature, {
+            strokeColor: "#e00",
+            strokeOpacity: 0.5,
+            strokeWeight: 2
+          })
+          infobox.innerHTML = getInfo(event.feature)
+        })
+        map.data.addListener('mouseout', function(event) {
+          map.data.revertStyle()
+          infobox.innerHTML = lastText
+        })
+      }
+
+      window.initMap = initMap;
+    })();
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAcQh_d7YqK80u23AB7_VdegQx96Eot1u8&callback=initMap"
+    ></script>
+</body>
+</html>

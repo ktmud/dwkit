@@ -1,0 +1,34 @@
+{
+  "name": "dwkit",
+  "version": "0.0.1",
+  "description": "Data Wrangling Toolkit",
+  "main": "app.js",
+  "scripts": {
+    "prepublish": "npm prune",
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ktmud/dwkit.git"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "multer": "^1.2.0",
+    "serve-static": "^1.11.1"
+  },
+  "keywords": [
+    "data",
+    "wrangling",
+    "web",
+    "service",
+    "toolkit"
+  ],
+  "author": "Jesse Yang <kissmud@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ktmud/dwkit/issues"
+  },
+  "homepage": "https://github.com/ktmud/dwkit#readme"
+}

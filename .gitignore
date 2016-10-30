@@ -1,0 +1,9 @@
+node_modules
+npm*
+*.css
+*.bak
+.DS_Store
+var/*.log
+conf/*
+tmp/
+bower_components/
