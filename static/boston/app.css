@@ -1,0 +1,52 @@
+html, body { padding: 0; margin: 0; height: 100% }
+body {
+  font-size: 14px;
+  font-family: roboto, sans-serif;
+}
+#map {
+  width: 100%;
+  height: 100%;
+}
+#infobox {
+  position: absolute;
+  margin: 0 auto;
+  top: 10px;
+  right: 10px;
+  background: #fff;
+  border: 1px solid #bbb;
+  position: absolute;
+  border-radius: 1px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.2);
+  width: 300px;
+}
+#infobox b {
+  display: inline-block;
+  width: 6em;
+  text-align: right;
+  padding-right: 0.5em;
+}
+#infobox ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+#infobox li {
+  margin: 0.4em 0;
+}
+.info {
+  border-top: 1px solid #ccc;
+  padding: 1em;
+}
+.control-group {
+  padding: 0.3em 1em 0.6em;
+}
+
+.loading {
+  display: block;
+  text-align: center;
+  font-style: italic;
+}
+
+select {
+  font-size: 14px;
+}
